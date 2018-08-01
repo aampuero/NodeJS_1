@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block nav %}
+<div class="navbar navbar-inverse cuerpo-main">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" id="logo" href="/"><span class="glyphicon glyphicon-home"></span> Hola {{usuario}} !</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/user"><span class="glyphicon glyphicon-picture"></span> Galeria</a></li>
+            <li class="active"><a href="/subir-archivo"><span class="glyphicon glyphicon-open-file"></span> Subir Imagenes</a></li>
+            <li><a href="/"><span class="glyphicon glyphicon-open-file"></span> Salir Sesion</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+{% block titulo %}
+    Carga tu Imagen
+{% endblock %}
+{% block cargarImg %}
+<div class="jumbotron">
+    <div class="row clearfix">
+        <div class="col-md-4 column">
+        </div>
+        <div class="col-md-4 column">
+            <div class="container text-center">
+                <form id="frmUpload" role="form" method="POST" action="/uploadFile" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="inpUpload">Cargar imagen</label>
+                        <input type="file" id="inpUpload" name="inpUpload" required="">
+                        <br>
+                        <input type="submit" value="Enviar" id="inpEnviarImagen" name="inpEnviarImagen" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4 column">
+        </div>            
+    </div>
+</div>
+{%endblock%}

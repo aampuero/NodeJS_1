@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Chat</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Pangolin" rel="stylesheet">
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
+</head>
+<body>
+	{% block nav %}
+	{% endblock %}
+	<div class="container">
+		<div class="row clearfix">			
+			<div>
+				<div class="col-md-5 col-sm-12 col-md-offset-3">
+					<h1 class="text-center titulo-login">
+						{% block titulo %}
+						{% endblock %}
+					</h1>
+				</div>
+		</div>		
+		<div class="row clearfix">			
+			{% block formulario %}
+			{% endblock %}
+		</div>
+		{% block mainApp %}
+		{% endblock %}
+		{% block editImg %}
+		{% endblock %}
+		{% block cargarImg %}
+		{% endblock %}
+	</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('[data-toggle="tooltip"]').tooltip();		
+    });
+
+    var socket = io();
+
+	window.onload = function(){
+
+    	socket.on('connect', function (){
+            
+        canvas = document.getElementsByTagName('canvas')[0].getContext('2d'),
+                click = false,
+                img = new Image(500, 300);
+
+        img.src = $('#idEditImage').val();
+
+        img.onload = function (){
+            canvas.drawImage(img, 10, 10, 480, 280);
+        };
+
+        $(window).mousedown(function () {
+            click = true;
+        });
+
+        $(window).mouseup(function () {
+            click = false;
+        });
+
+        $('canvas').mousedown(function (e) {
+            draw(e.pageX, e.pageY);
+        });
+
+        $('canvas').mouseup(function (e) {
+            draw(e.pageX, e.pageY);
+        });
+
+        $('canvas').mousemove(function (e) {
+            if (click === true) {
+                socket.emit('draw', {pageX : e.pageX, pageY : e.pageY});
+                draw(e.pageX, e.pageY);
+            }
+        });
+        
+        socket.on('move',function(e){
+            draw(e.pageX, e.pageY);
+        });        
+
+        function draw(xPos, yPos){
+            canvas.beginPath();
+            canvas.fillStyle = $('input[type=color]').val();
+            canvas.arc(xPos - $('canvas').offset().left, yPos - $('canvas').offset().top, $('input[type=range]').val(), 0, 2 * Math.PI);
+            canvas.fill();
+            canvas.closePath();
+        }        
+        });
+    };
+</script>
+</body>
+</html>

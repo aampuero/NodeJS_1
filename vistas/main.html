@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block nav %}
+<div class="navbar navbar-inverse cuerpo-main">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" id="logo" href="/"><span class="glyphicon glyphicon-home"></span>  Hola {{usuario}} !</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/user"><span class="glyphicon glyphicon-picture"></span> Galeria</a></li>
+            <li><a href="/subir-archivo"><span class="glyphicon glyphicon-open-file"></span> Cargar Imagenes</a></li>
+            <li><a href="/"><span class="glyphicon glyphicon-open-file"></span> Cerrar Sesion</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+{% block titulo %}
+    Galeria de Imagenes
+{% endblock %}
+{% block mainApp %}
+<div class="container-fluid">
+    <div class="jumbotron">
+        <form role="form" method="POST" action="/edit">
+            <div class="container">
+                {%for imagen in imagenes%}
+                <div class="gallery" style="cursor: pointer;" data-toggle="tooltip" title="Haga clic para editar esta imagen.">
+                    <img src="{{imagen}}" width="300" height="200" onclick="$('#idImagen').val('{{imagen}}');document.forms[0].submit();">
+                </div>
+                {%endfor%}
+                <input type="hidden" id="idImagen" name="idImagen">
+            </div>
+            
+        </form>
+        
+    </div>
+</div>
+{% endblock %}

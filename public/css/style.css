@@ -1,0 +1,49 @@
+.titulo-login{
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	font-family: 'Pangolin', cursive;
+	font-size: 3em;
+	padding: 10px;
+	box-sizing: border-box;
+}
+.cuerpo-login{
+	background-color: rgba(243, 93, 23,0.5);
+}
+.form-group p{
+	padding: 10px;
+}
+#logo{
+	color: #FBF2EE;
+}
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}
+div.gallery:hover{
+    border: 1px solid #777;
+}
+div.gallery img{
+    width: 100%;
+    height: auto;
+}
+.wrapper{
+  width: 500px;
+  margin: 20px auto;
+}
+.controls{
+  padding-bottom: 10px;
+  overflow: hidden;
+}
+.controls input{
+  float: left;
+  margin-right: 10px;
+}
+canvas{
+  background: #ccc;
+  cursor: pointer;
+}
+.jumbotron{
+  background-color: #EEF6FB;
+}
